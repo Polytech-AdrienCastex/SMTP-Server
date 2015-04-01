@@ -1,24 +1,31 @@
 
 package smtp.server;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CommandResult
 {
     public CommandResult()
     {
         executedWell = false;
-        user = null;
-        securityMessage = null;
+        to = new ArrayList<>();
+        writers = new ArrayList<>();
         
         this.cmdResultParent = null;
     }
     public CommandResult(CommandResult cmdResultParent)
     {
         executedWell = false;
-        user = cmdResultParent.user;
-        securityMessage = cmdResultParent.securityMessage;
+        to = new ArrayList<>();
+        writers = new ArrayList<>();
         
         this.cmdResultParent = cmdResultParent;
     }
@@ -27,22 +34,57 @@ public class CommandResult
     private final CommandResult cmdResultParent;
     
     private boolean executedWell;
-    private User user;
-    private String userName;
-    private String securityMessage;
+    
+    private String from;
+    private final List<User> to;
+    private final List<BufferedWriter> writers;
     //**********************
     
-    public String getSecurityMessage()
-    {
-        if(securityMessage != null)
-            return securityMessage;
-        
-        securityMessage = ManagementFactory.getRuntimeMXBean().getName();
-        securityMessage = securityMessage.substring(0, securityMessage.indexOf("@")) + "." + new Date().getTime() + "@" + securityMessage.substring(securityMessage.indexOf("@") + 1);
-        return securityMessage;
-    }
     
     //*********** ACCESSORS
+    public void setFrom(String from)
+    {
+        this.from = from;
+    }
+    public String getFrom()
+    {
+        return from;
+    }
+    
+    public void addTo(User to)
+    {
+        this.to.add(to);
+    }
+    public List<User> getTo()
+    {
+        return to;
+    }
+    
+    public void openWriters()
+    {
+        to.forEach(u -> 
+        {
+            try
+            {
+                writers.add(new BufferedWriter(new FileWriter(u.getAvailableFile())));
+            }
+            catch(IOException ex)
+            { }
+        });
+    }
+    public void write(String content)
+    {
+        writers.forEach(w -> 
+        {
+            try
+            {
+                w.write(content);
+            }
+            catch(IOException ex)
+            { }
+        });
+    }
+    
     public boolean isExecutedWell()
     {
         return executedWell;
@@ -52,28 +94,6 @@ public class CommandResult
         this.executedWell = executedWell;
         if(cmdResultParent != null)
             cmdResultParent.executedWell = executedWell;
-    }
-    
-    public User getUser()
-    {
-        return user;
-    }
-    public void setUser(User user)
-    {
-        this.user = user;
-        if(cmdResultParent != null)
-            cmdResultParent.user = user;
-    }
-    
-    public String getUserName()
-    {
-        return userName;
-    }
-    public void setUserName(String userName)
-    {
-        this.userName = userName;
-        if(cmdResultParent != null)
-            cmdResultParent.userName = userName;
     }
     //**********************
 }

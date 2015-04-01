@@ -1,25 +1,18 @@
 package smtp.server;
 
-public abstract class Command
+public abstract class Command extends ICommand
 {
     public Command(String name, State nextState)
     {
-        this.name = name.trim().toLowerCase();
-        this.nextState = nextState;
+        super(name, nextState);
     }
     
-    private final String name;
-    private final State nextState;
-    
+    @Override
     public boolean is(String cmd)
     {
-        return cmd.trim().toLowerCase().equals(name);
-    }
-    
-    public State getNextState()
-    {
-        return nextState;
+        return cmd.trim().toLowerCase().equals(getCommandName());
     }
 
+    @Override
     public abstract String Run(String[] parameters, CommandResult cmdResult);
 }

@@ -15,7 +15,18 @@ public class MAIL extends Command
     @Override
     public String Run(String[] parameters, CommandResult cmdResult)
     {
-        cmdResult.setExecutedWell(true);
-        return "250 Requested mail action okay, completed";
+        try
+        {
+            String address = parameters[0].substring("FROM:".length()).replace(">", "").replace("<", "").trim().split("@")[0];
+            cmdResult.setFrom(address);
+
+            cmdResult.setExecutedWell(true);
+            return "250 Requested mail action okay, completed";
+        }
+        catch(Exception ex)
+        {
+            cmdResult.setExecutedWell(false);
+            return "501 Syntax error in parameters or arguments";
+        }
     }
 }
