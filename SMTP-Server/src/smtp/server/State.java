@@ -2,7 +2,7 @@ package smtp.server;
 
 public abstract class State
 {
-    public void Initialize(Command[] commands)
+    public void Initialize(ICommand[] commands)
     {
         _nextState = this;
         
@@ -21,11 +21,11 @@ public abstract class State
     }
     //**********************
     
-    private Command[] commands;
+    private ICommand[] commands;
     
     public String Run(String cmd, String[] parameters, CommandResult cmdResultGlobal)
     {
-        for(Command c : commands)
+        for(ICommand c : commands)
         {
             if(c.is(cmd))
             {

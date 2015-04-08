@@ -18,6 +18,7 @@ public class MAIL extends Command
         try
         {
             String address = parameters[0].substring("FROM:".length()).replace(">", "").replace("<", "").trim().split("@")[0];
+            System.out.println("[MAIL FROM] : " + address);
             cmdResult.setFrom(address);
 
             cmdResult.setExecutedWell(true);

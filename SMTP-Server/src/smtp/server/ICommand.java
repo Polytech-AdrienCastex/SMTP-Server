@@ -4,11 +4,14 @@ public abstract class ICommand
 {
     public ICommand(String name, State nextState)
     {
-        this.name = name.trim().toLowerCase();
+        this.name = name;
+        if(this.name != null)
+            this.name = name.trim().toLowerCase();
+        
         this.nextState = nextState;
     }
     
-    private final String name;
+    protected String name;
     private final State nextState;
     
     public abstract boolean is(String cmd);

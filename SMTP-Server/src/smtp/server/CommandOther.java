@@ -7,16 +7,10 @@ public abstract class CommandOther extends ICommand
         super(null, nextState);
     }
     
-    private String command;
-    protected String getCommand()
-    {
-        return command;
-    }
-    
     @Override
     public boolean is(String cmd)
     {
-        this.command = cmd;
+        name = cmd;
         return true;
     }
 

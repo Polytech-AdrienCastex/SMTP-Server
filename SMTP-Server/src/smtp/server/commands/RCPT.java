@@ -19,6 +19,7 @@ public class RCPT extends Command
         try
         {
             String address = parameters[0].substring("TO:".length()).replace(">", "").replace("<", "").trim().split("@")[0];
+            System.out.println("[MAIL TO] : " + address);
             User user = new User(address);
             
             if(!user.exists() || !user.canAccess())

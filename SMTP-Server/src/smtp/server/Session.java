@@ -100,9 +100,13 @@ public class Session implements Runnable
                 }
 
                 String msg = currentState.Run(cmd, parameters, sessionResult);
-                System.out.println("[MSG] \"" + msg + "\"");
-                obs.write(msg + "\r\n");
-                obs.flush();
+                
+                if(msg != null)
+                {
+                    System.out.println("[MSG] \"" + msg + "\"");
+                    obs.write(msg + "\r\n");
+                    obs.flush();
+                }
                 currentState = currentState.getNewState();
                 
                 if(currentState == null)

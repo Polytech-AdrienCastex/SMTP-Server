@@ -4,7 +4,6 @@ package smtp.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import smtp.server.states.ConfiguredState;
 import smtp.server.states.ConnectedState;
 
 public class AcceptSession implements Runnable
