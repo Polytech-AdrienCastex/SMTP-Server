@@ -12,18 +12,10 @@ public class DATA_GET extends CommandOther
         super(nextState);
     }
     
-    private String implode(String[] array)
-    {
-        String result = this.getCommandName();
-        for(String s : array)
-            result += " " + s;
-        return result;
-    }
-    
     @Override
     public String Run(String[] parameters, CommandResult cmdResult)
     {
-        String data = implode(parameters);
+        String data = cmdResult.getFullInputCommand();
         
         cmdResult.write(data);
         

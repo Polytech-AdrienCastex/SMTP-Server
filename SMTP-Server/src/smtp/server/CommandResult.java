@@ -20,14 +20,16 @@ public class CommandResult
         writers = new ArrayList<>();
         
         this.cmdResultParent = null;
+        this.fullInputCommand = null;
     }
-    public CommandResult(CommandResult cmdResultParent)
+    public CommandResult(CommandResult cmdResultParent, String fullInputCommand)
     {
         executedWell = false;
         to = new ArrayList<>();
         writers = new ArrayList<>();
         
         this.cmdResultParent = cmdResultParent;
+        this.fullInputCommand = fullInputCommand;
     }
     
     //*********** PROPERTIES
@@ -35,6 +37,7 @@ public class CommandResult
     
     private boolean executedWell;
     
+    private final String fullInputCommand;
     private String from;
     private final List<User> to;
     private final List<BufferedWriter> writers;
@@ -42,6 +45,11 @@ public class CommandResult
     
     
     //*********** ACCESSORS
+    public String getFullInputCommand()
+    {
+        return fullInputCommand;
+    }
+    
     public void setFrom(String from)
     {
         this.from = from;

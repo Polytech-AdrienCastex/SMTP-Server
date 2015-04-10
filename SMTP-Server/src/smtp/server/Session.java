@@ -68,38 +68,38 @@ public class Session implements Runnable
             while(true)
             {
                 // Receive a string
-                String str = "";
+                String fullInput = "";
                 do
                 {
                     int len = ibs.read(buffer);
                     if(len <= 0) // Client closed
                         break;
-                    str += String.valueOf(buffer, 0, len);
-                } while (!str.endsWith("\r\n"));
+                    fullInput += String.valueOf(buffer, 0, len);
+                } while (!fullInput.endsWith("\r\n"));
 
                 // Clear the start and the end of the received string
                 int nb = 0;
-                while(str.startsWith(" ", nb))
+                while(fullInput.startsWith(" ", nb))
                     nb++;
-                str = str.substring(nb, str.length() - 2 - nb);
-                System.out.println("[" + sessionID + ":INPUT] \"" + str + "\"");
+                String str_cleaned = fullInput.substring(nb, fullInput.length() - 2 - nb);
+                System.out.println("[" + sessionID + ":INPUT] \"" + fullInput + "\"");
 
                 // Split the string
-                int spaceIndex = str.indexOf(" ");
+                int spaceIndex = fullInput.indexOf(" ");
                 String cmd;
                 String[] parameters;
                 if(spaceIndex == -1)
                 { // No space
-                    cmd = str;
+                    cmd = str_cleaned;
                     parameters = new String[0];
                 }
                 else
                 { // Space found
-                    cmd = str.substring(0, spaceIndex);
-                    parameters = str.substring(spaceIndex + 1).split(" ");
+                    cmd = str_cleaned.substring(0, spaceIndex);
+                    parameters = str_cleaned.substring(spaceIndex + 1).split(" ");
                 }
 
-                String msg = currentState.Run(cmd, parameters, sessionResult);
+                String msg = currentState.Run(cmd, parameters, fullInput, sessionResult);
                 
                 if(msg != null)
                 {

@@ -23,13 +23,13 @@ public abstract class State
     
     private ICommand[] commands;
     
-    public String Run(String cmd, String[] parameters, CommandResult cmdResultGlobal)
+    public String Run(String cmd, String[] parameters, String fullInputCommand, CommandResult cmdResultGlobal)
     {
         for(ICommand c : commands)
         {
             if(c.is(cmd))
             {
-                CommandResult cmdResult = new CommandResult(cmdResultGlobal);
+                CommandResult cmdResult = new CommandResult(cmdResultGlobal, fullInputCommand);
                 String result = c.Run(parameters, cmdResult);
                 if(cmdResult.isExecutedWell())
                 {
