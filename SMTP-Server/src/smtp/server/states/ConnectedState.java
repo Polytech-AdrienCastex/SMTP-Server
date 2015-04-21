@@ -1,6 +1,6 @@
 
 package smtp.server.states;
-import smtp.server.Command;
+import smtp.server.command.Command;
 import smtp.server.State;
 import smtp.server.commands.EHLO;
 import smtp.server.commands.HELO;

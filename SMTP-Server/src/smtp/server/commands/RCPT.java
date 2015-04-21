@@ -1,7 +1,7 @@
 
 package smtp.server.commands;
 
-import smtp.server.Command;
+import smtp.server.command.Command;
 import smtp.server.CommandResult;
 import smtp.server.State;
 import smtp.server.User;

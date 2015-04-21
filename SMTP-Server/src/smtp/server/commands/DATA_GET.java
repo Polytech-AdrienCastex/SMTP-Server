@@ -1,7 +1,7 @@
 package smtp.server.commands;
 
 import java.util.stream.Stream;
-import smtp.server.CommandOther;
+import smtp.server.command.CommandOther;
 import smtp.server.CommandResult;
 import smtp.server.State;
 
@@ -21,7 +21,10 @@ public class DATA_GET extends CommandOther
         
         cmdResult.setExecutedWell(data.endsWith("\r\n.\r\n"));
         if(cmdResult.isExecutedWell())
-            return "250 ...";
+        {
+            cmdResult.close();
+            return "250 Requested mail action okay, completed";
+        }
         else
             return null;
     }

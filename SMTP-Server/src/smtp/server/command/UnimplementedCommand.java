@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 
-package smtp.server;
+package smtp.server.command;
+
+import smtp.server.CommandResult;
 
 /**
  *

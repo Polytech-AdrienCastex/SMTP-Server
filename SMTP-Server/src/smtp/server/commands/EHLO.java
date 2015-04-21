@@ -1,7 +1,7 @@
 
 package smtp.server.commands;
 
-import smtp.server.UnimplementedCommand;
+import smtp.server.command.UnimplementedCommand;
 
 public class EHLO extends UnimplementedCommand
 {

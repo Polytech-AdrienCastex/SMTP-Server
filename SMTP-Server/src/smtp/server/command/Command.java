@@ -1,4 +1,8 @@
-package smtp.server;
+package smtp.server.command;
+
+import smtp.server.CommandResult;
+import smtp.server.ICommand;
+import smtp.server.State;
 
 public abstract class Command extends ICommand
 {

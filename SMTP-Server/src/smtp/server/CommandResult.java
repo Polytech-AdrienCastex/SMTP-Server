@@ -4,12 +4,8 @@ package smtp.server;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class CommandResult
 {
@@ -25,9 +21,9 @@ public class CommandResult
     public CommandResult(CommandResult cmdResultParent, String fullInputCommand)
     {
         executedWell = false;
-        to = new ArrayList<>();
-        writers = new ArrayList<>();
         
+        this.to = cmdResultParent.to;
+        this.writers = cmdResultParent.writers;
         this.cmdResultParent = cmdResultParent;
         this.fullInputCommand = fullInputCommand;
     }
@@ -87,6 +83,20 @@ public class CommandResult
             try
             {
                 w.write(content);
+            }
+            catch(IOException ex)
+            { }
+        });
+    }
+    
+    public void close()
+    {
+        writers.forEach(w -> 
+        {
+            try
+            {
+                w.flush();
+                w.close();
             }
             catch(IOException ex)
             { }

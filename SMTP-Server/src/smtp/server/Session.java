@@ -117,6 +117,10 @@ public class Session implements Runnable
         { // Timeout
             System.out.println("[" + sessionID + "] Error : " + ex.getMessage());
         }
+        finally
+        {
+            sessionResult.close();
+        }
         
         System.out.println("[" + sessionID + "] Closing");
         close();
