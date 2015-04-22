@@ -17,9 +17,18 @@ public class DATA_GET extends CommandOther
     {
         String data = cmdResult.getFullInputCommand();
         
-        cmdResult.write(data);
-        
         cmdResult.setExecutedWell(data.endsWith("\r\n.\r\n"));
+        
+        if(cmdResult.isExecutedWell())
+        {
+            byte[] data_in = data.getBytes();
+            byte[] data_result = new byte[data_in.length];
+            System.arraycopy(data_in, 0, data_result, 0, data_in.length - 2);
+            cmdResult.write(data_result);
+        }
+        else
+            cmdResult.write(data);
+        
         if(cmdResult.isExecutedWell())
         {
             cmdResult.close();

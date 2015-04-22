@@ -68,14 +68,10 @@ public class Session implements Runnable
             while(true)
             {
                 // Receive a string
-                String fullInput = "";
-                do
-                {
-                    int len = ibs.read(buffer);
-                    if(len <= 0) // Client closed
-                        break;
-                    fullInput += String.valueOf(buffer, 0, len);
-                } while (!fullInput.endsWith("\r\n"));
+                int len = ibs.read(buffer);
+                if(len <= 0) // Client closed
+                    break;
+                String fullInput = String.valueOf(buffer, 0, len);
 
                 // Clear the start and the end of the received string
                 int nb = 0;

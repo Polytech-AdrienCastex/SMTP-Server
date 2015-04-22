@@ -7,7 +7,7 @@ import java.util.List;
 
 public class User
 {
-    private static final String USER_FOLDER = "emails_base";
+    private static final String USER_FOLDER = "\\\\univ-lyon1\\enseignement\\homes\\c\\p1002239\\Mes documents\\NetBeansProjects\\SMTP-Server3\\SMTP-Server\\emails_base";
     
     public User(String userName)
     {

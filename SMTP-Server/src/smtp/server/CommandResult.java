@@ -4,6 +4,7 @@ package smtp.server;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +76,15 @@ public class CommandResult
             catch(IOException ex)
             { }
         });
+    }
+    public void write(byte[] content)
+    {
+        try
+        {
+            write(new String(content, "UTF-8"));
+        }
+        catch(UnsupportedEncodingException ex)
+        { }
     }
     public void write(String content)
     {
